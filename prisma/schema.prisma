@@ -19,6 +19,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id String @id @default(uuid())
+model Veiculo {
+  id        String   @id @default(uuid())
+  placa     String   @unique
+  chassi    String   @unique
+  marca     String
+  modelo    String
+  uf        String
+  categoria String
+  tipo      String
+  especie   String
+  ano       Int
+  situacao  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("veiculos")
+}
+
+model Alerta {
+  id        String @id @default(uuid())
+  nome      String
+  tipo      String
+  descricao String
+  situacao  String
+  status    String
 }
