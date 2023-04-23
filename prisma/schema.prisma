@@ -44,4 +44,6 @@ model Alerta {
   descricao String
   situacao  String
   status    String
+
+  @@map("alertas")
 }
