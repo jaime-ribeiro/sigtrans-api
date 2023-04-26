@@ -53,7 +53,7 @@ export class VeiculoService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<VeiculoDTO[]> {
     return await this.prisma.veiculo.findMany();
   }
 

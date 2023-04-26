@@ -16,13 +16,24 @@ CREATE TABLE "veiculos" (
 );
 
 -- CreateTable
-CREATE TABLE "Alerta" (
+CREATE TABLE "alertas" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "nome" TEXT NOT NULL,
     "tipo" TEXT NOT NULL,
-    "descricao" TEXT NOT NULL,
     "situacao" TEXT NOT NULL,
-    "status" TEXT NOT NULL
+    "status" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "alertas_veiculos" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "alertaId" TEXT NOT NULL,
+    "veiculoId" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "alertas_veiculos_veiculoId_fkey" FOREIGN KEY ("veiculoId") REFERENCES "veiculos" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "alertas_veiculos_alertaId_fkey" FOREIGN KEY ("alertaId") REFERENCES "alertas" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex

@@ -34,16 +34,33 @@ model Veiculo {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  alertas AlertaVeiculo[]
+
   @@map("veiculos")
 }
 
 model Alerta {
-  id        String @id @default(uuid())
+  id        String   @id @default(uuid())
   nome      String
   tipo      String
-  descricao String
   situacao  String
   status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  veiculos AlertaVeiculo[]
 
   @@map("alertas")
+}
+
+model AlertaVeiculo {
+  id        String   @id @default(uuid())
+  alertaId  String
+  veiculoId String
+  createdAt DateTime @default(now())
+
+  veiculo Veiculo @relation(fields: [veiculoId], references: [id])
+  alerta  Alerta  @relation(fields: [alertaId], references: [id])
+
+  @@map("alertas_veiculos")
 }
