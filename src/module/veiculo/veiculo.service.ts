@@ -36,21 +36,11 @@ export class VeiculoService {
       throw new Error('Placa ou Chassi já cadastrado');
     }
 
-    //Validação Placa
-    const regexPlacaMercoSul = /^[a-zA-Z]{3}[0-9]{1}[a-zA-Z]{1}[0-9]{2}$/;
+    const veiculo = await this.prisma.veiculo.create({
+      data,
+    });
 
-    if (regexPlacaMercoSul.test(data.placa)) {
-      if (this.validarChassi(data.chassi)) {
-        const veiculo = await this.prisma.veiculo.create({
-          data,
-        });
-
-        return veiculo;
-      }
-      throw new Error('Chassi inválido');
-    } else {
-      throw new Error('Placa Inválida');
-    }
+    return veiculo;
   }
 
   async findAll(): Promise<VeiculoDTO[]> {
