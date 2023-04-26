@@ -7,19 +7,6 @@ import { VeiculoDTO } from './veiculo.dto';
 export class VeiculoService {
   constructor(private prisma: PrismaService) {}
 
-  validarChassi(chassi: string): boolean {
-    chassi = chassi.replace(/\s|-/g, '');
-
-    //Removendo letras "i", "o" e "q", verificando se tem 17 caracteres e se os últimos 4 são números
-    const regexChassi = /^[a-hj-npr-zA-HJ-NPR-Z0-9]{13}[0-9]{4}$/;
-
-    if (!regexChassi.test(chassi)) {
-      return false;
-    }
-
-    return true;
-  }
-
   async create(data: VeiculoDTO) {
     data.placa = data.placa.toUpperCase();
     data.chassi = data.chassi.toUpperCase();
