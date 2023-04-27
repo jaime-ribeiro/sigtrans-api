@@ -1,4 +1,4 @@
-import { BadRequestException, NestMiddleware } from '@nestjs/common';
+import { NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 
 export class ValidarVeiculoMiddleware implements NestMiddleware {

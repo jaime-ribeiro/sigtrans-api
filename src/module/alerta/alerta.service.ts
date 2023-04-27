@@ -9,11 +9,11 @@ export class AlertaService {
   async createAlerta(data: AlertaDTO) {
     const alertaExists = await this.prisma.alerta.findFirst({
       where: {
-        id: data.id,
+        nome: data.nome,
       },
     });
 
-    if (!alertaExists) {
+    if (alertaExists) {
       throw new Error('Alerta já existe');
     }
 

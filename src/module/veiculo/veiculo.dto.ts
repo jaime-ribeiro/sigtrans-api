@@ -9,7 +9,6 @@ export type VeiculoDTO = {
   tipo: string;
   especie: string;
   ano: number;
-  situacao: string;
   createdAt: Date;
   updatedAt: Date;
 };

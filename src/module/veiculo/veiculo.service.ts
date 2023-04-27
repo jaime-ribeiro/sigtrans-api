@@ -7,7 +7,7 @@ import { VeiculoDTO } from './veiculo.dto';
 export class VeiculoService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: VeiculoDTO) {
+  async create(data: VeiculoDTO): Promise<VeiculoDTO> {
     data.placa = data.placa.toUpperCase();
     data.chassi = data.chassi.toUpperCase();
 
