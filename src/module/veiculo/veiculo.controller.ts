@@ -8,7 +8,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { VeiculoService } from './veiculo.service';
-import { VeiculoDTO } from './veiculo.dto';
+import { VeiculoDTO } from './dto/veiculo.dto';
+import { AddSituacaoToVeiculoDTO } from './dto/addSituacaoToVeiculo.dto';
 
 @Controller('veiculo')
 export class VeiculoController {
@@ -19,9 +20,19 @@ export class VeiculoController {
     return this.veiculoService.create(data);
   }
 
+  @Post('situacao')
+  async addSituacao(@Body() data: AddSituacaoToVeiculoDTO) {
+    return this.veiculoService.addSituacao(data);
+  }
+
   @Get()
   async findAll() {
     return this.veiculoService.findAll();
+  }
+
+  @Get(':placa')
+  async encontrarVeiculoPlaca(@Param('placa') placa: string) {
+    return this.veiculoService.encontrarVeiculoPlaca(placa);
   }
 
   @Put(':id')

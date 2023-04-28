@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { AlertaDTO } from './alerta.dto';
+import { criarAlertaDTO } from './dto/criarAlerta.dto';
 import { PrismaService } from 'src/database/prisma.service';
 
 @Injectable()
 export class AlertaService {
   constructor(private prisma: PrismaService) {}
 
-  async createAlerta(data: AlertaDTO) {
+  async createAlerta(data: criarAlertaDTO) {
     const alertaExists = await this.prisma.alerta.findFirst({
       where: {
         nome: data.nome,
@@ -30,7 +30,7 @@ export class AlertaService {
     return alertas;
   }
 
-  async update(id: string, data: AlertaDTO) {
+  async update(id: string, data: criarAlertaDTO) {
     const alerta = await this.prisma.alerta.update({
       where: {
         id,
