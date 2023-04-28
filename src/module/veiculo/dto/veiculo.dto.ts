@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsInt, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class VeiculoDTO {
   @IsNotEmpty({ message: 'A placa não pode ser vazio' })
@@ -25,6 +25,7 @@ export class VeiculoDTO {
   @IsNotEmpty({ message: 'A especie não pode ser vazio' })
   especie: string;
 
+  @IsInt({ message: 'O ano tem que ser do tipo Int(Inteiro)' })
   @IsNotEmpty({ message: 'O ano não pode ser vazio' })
   ano: number;
 

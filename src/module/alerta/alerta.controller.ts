@@ -8,14 +8,14 @@ import {
   Put,
 } from '@nestjs/common';
 import { AlertaService } from './alerta.service';
-import { criarAlertaDTO } from './dto/criarAlerta.dto';
+import { CriarAlertaDTO } from './dto/CriarAlerta.dto';
 
 @Controller('alerta')
 export class AlertaController {
   constructor(private readonly alertaService: AlertaService) {}
 
   @Post()
-  async create(@Body() data: criarAlertaDTO) {
+  async create(@Body() data: CriarAlertaDTO) {
     return this.alertaService.createAlerta(data);
   }
 
@@ -25,7 +25,7 @@ export class AlertaController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: criarAlertaDTO) {
+  async update(@Param('id') id: string, @Body() data: CriarAlertaDTO) {
     return this.alertaService.update(id, data);
   }
 

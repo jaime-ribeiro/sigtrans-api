@@ -1,6 +1,9 @@
 import { IsNotEmpty, MaxLength } from 'class-validator';
+import { AlertaTipo } from '../enums/AlertaTipo.enum';
+import { AlertaSituacao } from '../enums/AlertaSituacao.enum';
+import { AlertaStatus } from '../enums/AlertaStatus.enum';
 
-export class criarAlertaDTO {
+export class CriarAlertaDTO {
   id?: string;
 
   @IsNotEmpty({ message: 'O nome não pode ser vazio' })
@@ -13,11 +16,11 @@ export class criarAlertaDTO {
   descricao: string;
 
   @IsNotEmpty({ message: 'O tipo não pode ser vazio' })
-  tipo: string;
+  tipo: AlertaTipo;
 
   @IsNotEmpty({ message: 'A situação não pode estar vazio' })
-  situacao: string;
+  situacao: AlertaSituacao;
 
   @IsNotEmpty({ message: 'O status não pode ser vazio' })
-  status: string;
+  status: AlertaStatus;
 }
