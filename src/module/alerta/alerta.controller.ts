@@ -6,9 +6,14 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AlertaService } from './alerta.service';
 import { CriarAlertaDTO } from './dto/CriarAlerta.dto';
+import { FileInterceptor, MulterModule } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('alerta')
 export class AlertaController {
@@ -17,6 +22,25 @@ export class AlertaController {
   @Post()
   async create(@Body() data: CriarAlertaDTO) {
     return this.alertaService.createAlerta(data);
+  }
+
+  @Post('/file')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './tmp',
+        filename: (req, file, callback) => {
+          const date = Date.now();
+          const ext = extname(file.originalname);
+          const originalnameNoWhitespace = file.originalname.replace(/\s/g, '');
+          const filename = `${originalnameNoWhitespace}-${date}${ext}`;
+          callback(null, filename);
+        },
+      }),
+    }),
+  )
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    return this.alertaService.createAlertaCSV(file);
   }
 
   @Get()
