@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CriarAlertaDTO } from './dto/CriarAlerta.dto';
 import { PrismaService } from 'src/database/prisma.service';
-import * as csvParse from 'csv-parse';
-import * as fs from 'fs';
+import { parse } from 'csv-parse';
+import { createReadStream, unlink } from 'fs';
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 
@@ -31,9 +31,9 @@ export class AlertaService {
   async createAlertaCSV(file: Express.Multer.File): Promise<void> {
     const alertas: CriarAlertaDTO[] = [];
     await new Promise((resolve, reject) => {
-      fs.createReadStream(file.path)
+      createReadStream(file.path)
         .pipe(
-          csvParse.parse({
+          parse({
             delimiter: ',',
             columns: true,
             ltrim: true,
@@ -48,7 +48,7 @@ export class AlertaService {
         })
         .on('end', function () {
           console.log('finished');
-          fs.unlink(file.path, (err) => {
+          unlink(file.path, (err) => {
             if (err) {
               reject(err);
             } else {
