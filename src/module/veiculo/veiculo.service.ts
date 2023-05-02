@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { VeiculoDTO } from './dto/veiculo.dto';
-import { AddSituacaoToVeiculoDTO } from './dto/addSituacaoToVeiculo.dto';
+import { CreateVeiculoDTO } from './dto/CreateVeiculo.dto';
+import { AddSituacaoToCreateVeiculoDTO } from './dto/AddSituacaoToVeiculo.dto';
 //import { validate } from 'vin-validator';
 
 @Injectable()
 export class VeiculoService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: VeiculoDTO): Promise<VeiculoDTO> {
+  async create(data: CreateVeiculoDTO): Promise<CreateVeiculoDTO> {
     data.placa = data.placa.toUpperCase();
     data.chassi = data.chassi.toUpperCase();
 
@@ -31,7 +31,7 @@ export class VeiculoService {
     return veiculo;
   }
 
-  async addSituacao(data: AddSituacaoToVeiculoDTO) {
+  async addSituacao(data: AddSituacaoToCreateVeiculoDTO) {
     const situacaoVeiculoExiste = await this.prisma.alertaVeiculo.findFirst({
       where: {
         alertaId: data.alertaId,
@@ -50,7 +50,7 @@ export class VeiculoService {
     return situacao;
   }
 
-  async findAll(): Promise<VeiculoDTO[]> {
+  async findAll(): Promise<CreateVeiculoDTO[]> {
     return await this.prisma.veiculo.findMany();
   }
 
@@ -69,7 +69,7 @@ export class VeiculoService {
     return veiculo;
   }
 
-  async update(id: string, data: VeiculoDTO) {
+  async update(id: string, data: CreateVeiculoDTO) {
     const veiculoExiste = await this.prisma.veiculo.findUnique({
       where: {
         id,

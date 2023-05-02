@@ -8,20 +8,20 @@ import {
   Put,
 } from '@nestjs/common';
 import { VeiculoService } from './veiculo.service';
-import { VeiculoDTO } from './dto/veiculo.dto';
-import { AddSituacaoToVeiculoDTO } from './dto/addSituacaoToVeiculo.dto';
+import { CreateVeiculoDTO } from './dto/CreateVeiculo.dto';
+import { AddSituacaoToCreateVeiculoDTO } from './dto/AddSituacaoToVeiculo.dto';
 
 @Controller('veiculo')
 export class VeiculoController {
   constructor(private readonly veiculoService: VeiculoService) {}
 
   @Post()
-  async create(@Body() data: VeiculoDTO) {
+  async create(@Body() data: CreateVeiculoDTO) {
     return this.veiculoService.create(data);
   }
 
   @Post('situacao')
-  async addSituacao(@Body() data: AddSituacaoToVeiculoDTO) {
+  async addSituacao(@Body() data: AddSituacaoToCreateVeiculoDTO) {
     return this.veiculoService.addSituacao(data);
   }
 
@@ -36,7 +36,7 @@ export class VeiculoController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: VeiculoDTO) {
+  async update(@Param('id') id: string, @Body() data: CreateVeiculoDTO) {
     return this.veiculoService.update(id, data);
   }
 

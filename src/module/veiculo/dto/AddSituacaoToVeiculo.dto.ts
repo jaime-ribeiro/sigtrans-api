@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class AddSituacaoToVeiculoDTO {
+export class AddSituacaoToCreateVeiculoDTO {
   @IsNotEmpty({ message: 'O veiculoId não pode ser vazio' })
   veiculoId: string;
 

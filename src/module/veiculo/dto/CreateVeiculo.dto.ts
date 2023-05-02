@@ -1,6 +1,6 @@
-import { IsInt, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsInt, IsNotEmpty } from 'class-validator';
 
-export class VeiculoDTO {
+export class CreateVeiculoDTO {
   @IsNotEmpty({ message: 'A placa não pode ser vazio' })
   placa: string;
 
