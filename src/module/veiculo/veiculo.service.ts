@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { CreateVeiculoDTO } from './dto/CreateVeiculo.dto';
 import { AddSituacaoToCreateVeiculoDTO } from './dto/AddSituacaoToVeiculo.dto';
+import { UpdateVeiculoDTO } from './dto/UpdateVeiculo.dto';
 //import { validate } from 'vin-validator';
 
 @Injectable()
@@ -69,7 +70,7 @@ export class VeiculoService {
     return veiculo;
   }
 
-  async update(id: string, data: CreateVeiculoDTO) {
+  async update(id: string, data: UpdateVeiculoDTO) {
     const veiculoExiste = await this.prisma.veiculo.findUnique({
       where: {
         id,
@@ -78,6 +79,38 @@ export class VeiculoService {
 
     if (!veiculoExiste) {
       throw new Error('Veiculo não encontrado');
+    }
+
+    if (data.placa) {
+      const placaExiste = await this.prisma.veiculo.findFirst({
+        where: {
+          placa: data.placa,
+          NOT: {
+            id: id,
+          },
+        },
+      });
+      if (placaExiste) {
+        throw new Error(
+          'A Placa que você deseja alterar, já está registrada em outro veículo',
+        );
+      }
+    }
+
+    if (data.chassi) {
+      const chassiExiste = await this.prisma.veiculo.findFirst({
+        where: {
+          chassi: data.chassi,
+          NOT: {
+            id: id,
+          },
+        },
+      });
+      if (chassiExiste) {
+        throw new Error(
+          'O chassi que você deseja alterar, já está registrada em outro veículo',
+        );
+      }
     }
 
     return await this.prisma.veiculo.update({
