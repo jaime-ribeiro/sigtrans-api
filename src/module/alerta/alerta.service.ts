@@ -3,13 +3,9 @@ import { CriarAlertaDTO } from './dto/CriarAlerta.dto';
 import { PrismaService } from 'src/database/prisma.service';
 import * as csvParse from 'csv-parse';
 import * as fs from 'fs';
-interface AlertaCsvDTO {
-  nome: string;
-  descricao: string;
-  tipo: string;
-  situacao: string;
-  status: string;
-}
+import { validate } from 'class-validator';
+import { plainToClass } from 'class-transformer';
+
 @Injectable()
 export class AlertaService {
   constructor(private prisma: PrismaService) {}
@@ -63,9 +59,27 @@ export class AlertaService {
     });
 
     for (const alerta of alertas) {
-      await this.prisma.alerta.create({
-        data: alerta,
-      });
+      //Atribuindo DTO para o objeto
+      const AlertaWithDTO = plainToClass(CriarAlertaDTO, alerta);
+      //Validando Alerta
+      const errors = await validate(AlertaWithDTO);
+      if (errors.length > 1) {
+        console.log(errors);
+      } else {
+        const alertaExists = await this.prisma.alerta.findFirst({
+          where: {
+            nome: alerta.nome,
+          },
+        });
+
+        if (alertaExists) {
+          console.log(`Alerta ${alerta.nome} já existe`);
+        } else {
+          await this.prisma.alerta.create({
+            data: alerta,
+          });
+        }
+      }
     }
   }
 
