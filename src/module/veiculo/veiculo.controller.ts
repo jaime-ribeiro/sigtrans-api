@@ -10,6 +10,7 @@ import {
 import { VeiculoService } from './veiculo.service';
 import { CreateVeiculoDTO } from './dto/CreateVeiculo.dto';
 import { AddSituacaoToCreateVeiculoDTO } from './dto/AddSituacaoToVeiculo.dto';
+import { UpdateVeiculoDTO } from './dto/UpdateVeiculo.dto';
 
 @Controller('veiculo')
 export class VeiculoController {
@@ -36,7 +37,7 @@ export class VeiculoController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: CreateVeiculoDTO) {
+  async update(@Param('id') id: string, @Body() data: UpdateVeiculoDTO) {
     return this.veiculoService.update(id, data);
   }
 

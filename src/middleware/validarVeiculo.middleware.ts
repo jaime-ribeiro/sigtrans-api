@@ -13,19 +13,29 @@ export class ValidarVeiculoMiddleware implements NestMiddleware {
     return true;
   }
 
-  use(req: Request, res: Response, next: NextFunction) {
-    const { placa, chassi } = req.body;
-
+  validarPlaca(placa: string) {
     const regexPlacaMercoSul = /^[a-zA-Z]{3}[0-9]{1}[a-zA-Z]{1}[0-9]{2}$/;
 
-    if (regexPlacaMercoSul.test(placa)) {
-      if (this.validarChassi(chassi)) {
-        next();
-      } else {
-        return res.status(400).send({ error: 'Chassi Inválido' });
-      }
+    if (!regexPlacaMercoSul.test(placa)) {
+      return false;
+    }
+    return true;
+  }
+
+  use(req: Request, res: Response, next: NextFunction) {
+    const { placa, chassi } = req.body;
+    if (!placa && !chassi) {
+      next();
     } else {
-      return res.status(400).send({ error: 'Placa inválida' });
+      if (this.validarPlaca(placa)) {
+        if (this.validarChassi(chassi)) {
+          next();
+        } else {
+          return res.status(400).send({ error: 'Chassi Inválido' });
+        }
+      } else {
+        return res.status(400).send({ error: 'Placa inválida' });
+      }
     }
   }
 }

@@ -19,7 +19,7 @@ export class AppModule implements NestModule {
       .apply(ValidarVeiculoMiddleware)
       .forRoutes(
         { path: 'veiculo', method: RequestMethod.POST },
-        { path: 'veiculo/id:', method: RequestMethod.PUT },
+        { path: 'veiculo/:id', method: RequestMethod.PUT },
       );
   }
 }
