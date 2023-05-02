@@ -24,20 +24,15 @@ export class ValidarVeiculoMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: NextFunction) {
     const { placa, chassi } = req.body;
-    if (!placa && !chassi) {
-      next();
-    } else {
-      if (this.validarPlaca(placa)) {
-        if (this.validarChassi(chassi)) {
-          next();
-        } else {
-          return res.status(400).send({ error: 'Chassi Inválido' });
-        }
+
+    if (this.validarPlaca(placa)) {
+      if (this.validarChassi(chassi)) {
+        next();
       } else {
-        return res.status(400).send({ error: 'Placa inválida' });
+        return res.status(400).send({ error: 'Chassi Inválido' });
       }
+    } else {
+      return res.status(400).send({ error: 'Placa inválida' });
     }
   }
 }
-
-//O regexChassi remove as letras "i", "o" e "q", verificando se tem 17 caracteres e se os últimos 4 são números
