@@ -6,6 +6,4 @@ export class AddSituacaoToCreateVeiculoDTO {
 
   @IsNotEmpty({ message: 'O alertaId não pode ser vazio' })
   alertaId: string;
-
-  createdAt: Date;
 }
