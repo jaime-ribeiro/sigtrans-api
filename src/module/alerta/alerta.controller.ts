@@ -14,7 +14,8 @@ import { CriarAlertaDTO } from './dto/CriarAlerta.dto';
 import { FileInterceptor, MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('Alerta')
 @Controller('alerta')
 export class AlertaController {
   constructor(private readonly alertaService: AlertaService) {}

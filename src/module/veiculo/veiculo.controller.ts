@@ -11,7 +11,9 @@ import { VeiculoService } from './veiculo.service';
 import { CreateVeiculoDTO } from './dto/CreateVeiculo.dto';
 import { AddSituacaoToCreateVeiculoDTO } from './dto/AddSituacaoToVeiculo.dto';
 import { UpdateVeiculoDTO } from './dto/UpdateVeiculo.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Veiculo')
 @Controller('veiculo')
 export class VeiculoController {
   constructor(private readonly veiculoService: VeiculoService) {}

@@ -35,5 +35,5 @@ export class UpdateVeiculoDTO {
 
   @IsOptional()
   @IsInt({ message: 'O ano tem que ser do tipo Int(Inteiro)' })
-  ano: number;
+  ano?: number;
 }
