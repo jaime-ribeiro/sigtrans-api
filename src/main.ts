@@ -7,6 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
 
+  //Adicionando Swagger
   const config = new DocumentBuilder()
     .setTitle('Sigtrans Desafio')
     .setDescription('Sigtrans API para Veículos e Alertas')
