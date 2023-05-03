@@ -3,7 +3,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { CreateVeiculoDTO } from './dto/CreateVeiculo.dto';
 import { AddSituacaoToCreateVeiculoDTO } from './dto/AddSituacaoToVeiculo.dto';
 import { UpdateVeiculoDTO } from './dto/UpdateVeiculo.dto';
-//import { validate } from 'vin-validator';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class VeiculoService {
