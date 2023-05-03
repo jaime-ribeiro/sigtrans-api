@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CriarAlertaDTO } from './dto/CriarAlerta.dto';
-import { PrismaService } from 'src/database/prisma.service';
+import { PrismaService } from '../../database/prisma.service';
 import { parse } from 'csv-parse';
 import { createReadStream, unlink } from 'fs';
 import { validate } from 'class-validator';

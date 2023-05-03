@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AlertaService } from './alerta.service';
 import { AlertaController } from './alerta.controller';
-import { PrismaService } from 'src/database/prisma.service';
-import { AlertGateway } from 'src/gateway/AlertGateway';
+import { PrismaService } from '../../database/prisma.service';
+import { AlertGateway } from '../../gateway/AlertGateway';
 
 @Module({
   controllers: [AlertaController],

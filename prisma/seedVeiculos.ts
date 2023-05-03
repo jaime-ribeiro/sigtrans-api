@@ -41,7 +41,7 @@ function gerarPlaca(): string {
       placa += Math.floor(Math.random() * 10).toString();
     }
   }
-  /*       placa = placa.toUpperCase(); */
+
   return placa;
 }
 
