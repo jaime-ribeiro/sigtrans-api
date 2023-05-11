@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:11.12
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresql11:/var/log/postgresql
+      - postgresql11:/var/lib/postgresql
+
+volumes:
+  postgresql11:
+    driver: local
