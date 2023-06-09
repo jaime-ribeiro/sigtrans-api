@@ -21,13 +21,12 @@ services:
     depends_on:
       - postgres
     environment:
-    #Sem o DATABASE_URL não conseguia encontrar o banco de dados, e não pode ser @localhost
+      #Sem o DATABASE_URL não conseguia encontrar o banco de dados, e não pode ser @localhost
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/mydb
       PORT: 3000
     ports:
       - "3000:3000"
     restart: always
-
 
 volumes:
   postgresql11:
